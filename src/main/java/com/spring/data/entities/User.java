@@ -1,19 +1,30 @@
-package com.spring.entities;
+package com.spring.data.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import com.spring.utils.enums.RoleEnum;
 
-public class User extends Entity {
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+    
     private RoleEnum role;
     private String username;
     private String email;
     private String hashedPassword;
-    private String salt;
+    private byte[] salt;
     private String firstName;
     private String lastName;
 
-    public User(long id, RoleEnum role, String username, String email, String hashedPassword, String salt,
+    public User() {};
+
+    public User(RoleEnum role, String username, String email, String hashedPassword, byte[] salt,
             String firstName, String lastName) {
-        super(id);
         this.role = role;
         this.username = username;
         this.email = email;
@@ -22,6 +33,14 @@ public class User extends Entity {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public long getId() {
+        return id;
+    };
+
+    public void setId(long id) {
+        this.id = id;
+    };
 
     public String getLastName() {
         return lastName;
@@ -39,11 +58,11 @@ public class User extends Entity {
         this.firstName = firstName;
     }
 
-    public String getSalt() {
+    public byte[] getSalt() {
         return salt;
     }
 
-    public void setSalt(String salt) {
+    public void setSalt(byte[] salt) {
         this.salt = salt;
     }
 
